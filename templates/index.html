@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Speech Language Translation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
+    <!--link rel="stylesheet" href="index.css"-->
+</head>
+<body>
+<div id="speechContainer">
+   <h1>Multilingual ASR and NMT</h1>
+    <h3>Upload an audio file (.wav format)<h3>
+    <form method="post" enctype="multipart/form-data">
+        <label>Source language</label>
+        <select name="language">
+            <option value="English" id="en">English</option>
+        </select>
+        <br>
+        <br>
+        <label>Select a target language</label>
+        <select name="languaget">
+            <option value="free" selected disabled hidden>Choose</option>
+            <option value="Tamil" id="ta">Tamil</option>
+            <option value="Bengali" id="bn1">Bengali</option>
+            <option value="Hindi" id="hi1">Hindi</option>
+            <option value="Telugu" id="te1">Telugu</option>
+            <option value="Malayalam" id="ml">Malayalam</option>
+        </select>
+        <br>
+        <br>
+        <input type="file" id="upload" name="file"/>
+        <br>
+        <br>
+        <audio id="audio" controls>
+            <source src="" id="src" />
+        </audio>
+        <br>
+        <input type="submit" id="submitButton" value="Translate"/>
+    </form>
+
+    {% if transcript != "" %}
+        <div id="speechTranscriptContainer">
+            <h3>ASR Transcript</h3>
+            <textarea readonly id="speechText">{{ transcript }}</textarea>
+        </div>
+    {% endif %}
+
+    {% if corrected_transcript != "" %}
+        <div id="correctedTranscriptContainer">
+            <h3>Corrected Transcript</h3>
+            <textarea readonly id="correctedText">{{ corrected_transcript }}</textarea>
+        </div>
+    {% endif %}
+
+    {% if translate != "" %}
+        <div id="translationContainer">
+            <h3>Translated </h3>
+            <textarea readonly id="translatedText">{{ translate }}</textarea>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+    function handleFiles(event) {
+        var files = event.target.files;
+        var audioElement = document.getElementById("audio");
+        var audioSrc = document.getElementById("src");
+        
+        audioSrc.src = URL.createObjectURL(files[0]);
+        audioElement.load();
+    }
+
+    document.getElementById("upload").addEventListener("change", handleFiles, false);
+
+    
+</script>
+
+
+</body>
+</html>
