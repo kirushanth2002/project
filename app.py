@@ -52,4 +52,4 @@ except Exception as e:
 return f"An error occurred: {str(e)}"
 return render_template('index.html', transcript=transcript, corrected_transcript=corrected_transcript, translate=translate)
 if __name__ == "__main__":
-app.run(debug=True, threaded=True) i need to run this code and get output help me
+app.run(debug=True, threaded=True)
